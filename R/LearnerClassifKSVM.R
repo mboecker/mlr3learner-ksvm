@@ -50,7 +50,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
       newdata = task$data(cols = task$feature_names) #get newdata
       type = ifelse(self$predict_type == "response", "response", "probabilities") #this is for the randomForest package
 
-      p = invoke(predict, self$model, newdata = newdata,
+      p = invoke(kernlab::predict, self$model, newdata = newdata,
         type = type, .args = pars)
 
       #return a prediction object with PredictionClassif$new() or PredictionRegr$new()
