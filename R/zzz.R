@@ -9,7 +9,7 @@ register_mlr3 = function() {
 
   x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
 
-  x$add("classif.randomForest", LearnerClassifRandomForest)
+  x$add("classif.ksvm", LearnerClassifKSVM)
 }
 
 .onLoad = function(libname, pkgname) {

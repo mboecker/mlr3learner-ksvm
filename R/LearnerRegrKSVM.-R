@@ -1,24 +1,23 @@
-#' @title Classification Random Forest Learner
+#' @title Regression Kernlab Support Vector Machine
 #'
-#' @aliases mlr_learners_classif.randomForest
-#' @format [R6::R6Class] inheriting from [LearnerClassif].
+#' @aliases mlr_learners_regr.ksvm
+#' @format [R6::R6Class] inheriting from [LearnerRegr].
 #'
 #' @description
-#' A [LearnerClassif] for a classification random forest implemented in randomForest::randomForest()] in package \CRANpkg{randomForest}.
+#' A [LearnerRegr] for a regression support vector machine implemented in [kernlab::ksvm()] in package \CRANpkg{kernlab}.
 #'
 #' @references
-#' Breiman, L. (2001).
-#' Random Forests
-#' Machine Learning
-#' \url{https://doi.org/10.1023/A:1010933404324}
+#' Alexandros Karatzoglou, Alex Smola, Kurt Hornik, Achim Zeileis (2004).
+#' kernlab - An S4 Package for Kernel Methods in R. Journal of Statistical Software 11(9), 1-20.
+#' \url{http://www.jstatsoft.org/v11/i09/}
 #'
 #' @export
-LearnerClassifRandomForest = R6Class("LearnerClassifRandomForest", inherit = LearnerClassif, #adapt the name to your learner. For regression learners inherit = LearnerRegr
+LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
   public = list(
-    initialize = function(id = "classif.randomForest") { #adapt name
+    initialize = function(id = "regr.ksvm") {
       super$initialize(
-        id = id, #don't change this
-        packages = "randomForest", # adapt learner package
+        id = id,
+        packages = "kernlab",
         feature_types = c("numeric", "factor", "ordered"), # which feature types are supported? Must be a subset of mlr_reflections$task_feature_types
         predict_types = c("response", "prob"), # which predict types are supported? See mlr_reflections$learner_predict_types
         param_set = ParamSet$new( #the defined parameter set, now with the paradox package. See readme.rmd for more details
