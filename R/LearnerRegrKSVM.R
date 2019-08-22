@@ -22,26 +22,18 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
         predict_types = c("response"),
         param_set = ParamSet$new( #the defined parameter set, now with the paradox package. See readme.rmd for more details
           params = list(
-            ParamInt$new(id = "ntree", default = 500L, lower = 1L, tags = c("train", "predict")),
-            ParamInt$new(id = "mtry", lower = 1L, tags = "train"),
-            ParamLgl$new(id = "replace", default = TRUE, tags = "train"),
-            ParamUty$new(id = "classwt", default = NULL, tags = "train"), #lower = 0
-            ParamUty$new(id = "cutoff", tags = "train"), #lower = 0, upper = 1
-            ParamUty$new(id = "strata", tags = "train"),
-            ParamUty$new(id = "sampsize", tags = "train"), #lower = 1L
-            ParamInt$new(id = "nodesize", default = 1L, lower = 1L, tags = "train"),
-            ParamInt$new(id = "maxnodes", lower = 1L, tags = "train"),
-            ParamFct$new(id = "importance", default = "none", levels = c("accuracy", "gini", "none"), tag = "train"), #importance is a logical value in the randomForest package.
-            ParamLgl$new(id = "localImp", default = FALSE, tags = "train"),
-            ParamLgl$new(id = "proximity", default = FALSE, tags = "train"),
-            ParamLgl$new(id = "oob.prox", tags = "train"),
-            ParamLgl$new(id = "norm.votes", default = TRUE, tags = "train"),
-            ParamLgl$new(id = "do.trace", default = FALSE, tags = "train"),
-            ParamLgl$new(id = "keep.forest", default = TRUE, tags = "train"),
-            ParamLgl$new(id = "keep.inbag", default = FALSE, tags = "train")
+            ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
+            ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svc", "eps-bsvr"), tags = c("train")),
+            ParamUty$new(id = "kernel", default = "rbfdot", tags = c("train")),
+            ParamDbl$new(id = "C", default = 1, tags = c("train")),
+            ParamDbl$new(id = "nu", default = 0.2, tags = c("train")),
+            ParamDbl$new(id = "epsilon", default = 0.1, tags = c("train")),
+            ParamDbl$new(id = "cache", default = 40, tags = c("train")),
+            ParamDbl$new(id = "tol", default = 0.001, tags = c("train")),
+            ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train"))
           )
         ),
-        param_vals = list(importance = "none"), #we set this here, because the default is FALSE in the randomForest package.
+        param_vals = list(),
         properties = c("weights") #see mlr_reflections$learner_properties
       )
     },
