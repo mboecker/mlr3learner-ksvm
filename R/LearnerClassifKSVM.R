@@ -34,7 +34,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
           )
         ),
         param_vals = list(),
-        properties = c("weights", "twoclass", "multiclass", "importance", "oob_error") #see mlr_reflections$learner_properties
+        properties = c("weights", "twoclass", "multiclass")#, "importance", "oob_error") #see mlr_reflections$learner_properties
       )
     },
 
@@ -57,14 +57,14 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
       } else {
         PredictionClassif$new(task = task, prob = p)
       }
-    },
+    }
 
     #add method for importance, if learner supports that. It must return a sorted (decreasing) numerical, named vector.
-    importance = function() {
-    },
+    #importance = function() {
+    #},
 
     #add method for oob_error, if learner supports that.
-    oob_error = function() {
-    }
+    #oob_error = function() {
+    #}
   )
 )
