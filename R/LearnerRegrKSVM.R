@@ -19,7 +19,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
         id = id,
         packages = "kernlab",
         feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
-        predict_types = c("response", "se"),
+        predict_types = c("response"),
         param_set = ParamSet$new( #the defined parameter set, now with the paradox package. See readme.rmd for more details
           params = list(
             ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
@@ -41,16 +41,14 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
       pars = self$param_set$get_values(tags = "train")
       f = task$formula()
       data = task$data()
-      invoke(kernlab::ksvm, x = f, data = data, class.weights = task$weights$weight, prob.model = self$predict_type == "prob", .args = pars)
+      invoke(kernlab::ksvm, x = f, data = data, class.weights = task$weights$weight, .args = pars)
     },
 
     predict_internal = function(task) {
       pars = self$param_set$get_values(tags = "predict") #get parameters with tag "predict"
       newdata = task$data(cols = task$feature_names) #get newdata
 
-      predict_type = ifelse(self$predict_type == "se", "votes", "response")
-      p = invoke(kernlab::predict, self$model, newdata = newdata, type = predict_type, .args = pars)
-
+      p = invoke(kernlab::predict, self$model, newdata = newdata, type = "response", .args = pars)
       PredictionRegr$new(task = task, response = p)
     }
   )
