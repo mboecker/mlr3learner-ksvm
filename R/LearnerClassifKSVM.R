@@ -58,13 +58,5 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
         PredictionClassif$new(task = task, prob = p)
       }
     }
-
-    #add method for importance, if learner supports that. It must return a sorted (decreasing) numerical, named vector.
-    #importance = function() {
-    #},
-
-    #add method for oob_error, if learner supports that.
-    #oob_error = function() {
-    #}
   )
 )
