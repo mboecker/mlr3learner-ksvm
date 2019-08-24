@@ -18,7 +18,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
       super$initialize(
         id = id,
         packages = "kernlab",
-        feature_types = c("numeric", "factor", "ordered"), # which feature types are supported? Must be a subset of mlr_reflections$task_feature_types
+        feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"), # which feature types are supported? Must be a subset of mlr_reflections$task_feature_types
         predict_types = c("response", "prob"), # which predict types are supported? See mlr_reflections$learner_predict_types
         param_set = ParamSet$new( #the defined parameter set, now with the paradox package. See readme.rmd for more details
           params = list(
@@ -33,7 +33,6 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
             ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train"))
           )
         ),
-        param_vals = list(),
         properties = c("weights", "twoclass", "multiclass")
       )
     },

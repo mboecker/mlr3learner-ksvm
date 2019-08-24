@@ -18,7 +18,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
       super$initialize(
         id = id,
         packages = "kernlab",
-        feature_types = c("numeric", "factor", "ordered"),
+        feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
         predict_types = c("response"),
         param_set = ParamSet$new( #the defined parameter set, now with the paradox package. See readme.rmd for more details
           params = list(
@@ -33,7 +33,6 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
             ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train"))
           )
         ),
-        param_vals = list(),
         properties = c("weights")
       )
     },
