@@ -10,6 +10,7 @@ register_mlr3 = function() {
   x = utils::getFromNamespace("mlr_learners", ns = "mlr3")
 
   x$add("classif.ksvm", LearnerClassifKSVM)
+  x$add("regr", LearnerRegrKSVM)
 }
 
 .onLoad = function(libname, pkgname) {

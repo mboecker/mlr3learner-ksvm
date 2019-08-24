@@ -19,7 +19,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
         id = id,
         packages = "kernlab",
         feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
-        predict_types = c("response"),
+        predict_types = c("response", "se"),
         param_set = ParamSet$new( #the defined parameter set, now with the paradox package. See readme.rmd for more details
           params = list(
             ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
