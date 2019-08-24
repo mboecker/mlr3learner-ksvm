@@ -34,7 +34,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
           )
         ),
         param_vals = list(),
-        properties = c("weights", "twoclass", "multiclass")#, "importance", "oob_error") #see mlr_reflections$learner_properties
+        properties = c("weights", "twoclass", "multiclass")
       )
     },
 
@@ -42,7 +42,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
       pars = self$param_set$get_values(tags = "train")
       f = task$formula()
       data = task$data()
-      invoke(kernlab::ksvm, x = f, data = data, prob.model = self$predict_type == "prob", .args = pars)
+      invoke(kernlab::ksvm, x = f, data = data, class.weights = task$weights$weight, prob.model = self$predict_type == "prob", .args = pars)
     },
 
     predict_internal = function(task) {
