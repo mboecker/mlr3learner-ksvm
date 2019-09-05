@@ -30,7 +30,8 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
             ParamDbl$new(id = "epsilon", default = 0.1, tags = c("train")),
             ParamDbl$new(id = "cache", default = 40, tags = c("train")),
             ParamDbl$new(id = "tol", default = 0.001, tags = c("train")),
-            ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train"))
+            ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train")),
+            ParamUty$new(id = "kpar", default = list(), tags = c("train"))
           )
         ),
         properties = c("weights")
