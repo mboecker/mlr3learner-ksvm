@@ -4,7 +4,7 @@ test_kpar = function(kernel, kpar) {
   learner = LearnerRegrKSVM$new()
   learner$param_set$values = mlr3misc::insert_named(
     learner$param_set$values,
-    list(kernel = kernel, kpar = kpar)
+    append(list(kernel = kernel), kpar)
   )
   expect_learner(learner)
   result = run_autotest(learner)
@@ -13,7 +13,7 @@ test_kpar = function(kernel, kpar) {
   learner = LearnerClassifKSVM$new()
   learner$param_set$values = mlr3misc::insert_named(
     learner$param_set$values,
-    list(kernel = kernel, kpar = kpar)
+    append(list(kernel = kernel), kpar)
   )
   expect_learner(learner)
   result = run_autotest(learner)
