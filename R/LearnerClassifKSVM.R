@@ -38,7 +38,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
       ))
 
       ps$add_dep("sigma", "kernel", CondAnyOf$new(c("rbfdot", "laplacedot", "besseldot", "anovadot")))
-      ps$add_dep("degree", "kernel", CondAnyOf$new(c("polydot", "anovadot")))
+      ps$add_dep("degree", "kernel", CondAnyOf$new(c("polydot", "besseldot", "anovadot")))
       ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
       ps$add_dep("order", "kernel", "besseldot")
       ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
@@ -67,11 +67,13 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
 
       f = task$formula()
       data = task$data()
+
       invoke(kernlab::ksvm, x = f, data = data, class.weights = task$weights$weight, prob.model = self$predict_type == "prob", .args = pars)
     },
 
     predict_internal = function(task) {
-      newdata = task$data(cols = task$feature_names) #get newdata
+      newdata = task$data(cols = task$feature_names)
+
       predict_type = ifelse(self$predict_type == "prob", "probabilities", "response")
       p = invoke(kernlab::predict, self$model, newdata = newdata, type = predict_type)
 
