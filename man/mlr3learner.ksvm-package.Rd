@@ -4,9 +4,9 @@
 \name{mlr3learner.ksvm-package}
 \alias{mlr3learner.ksvm}
 \alias{mlr3learner.ksvm-package}
-\title{mlr3learner.ksvm: Wrapper for the kernlab::ksvm learner for use in mlr3.}
+\title{mlr3learner.ksvm: Wrapper for the kernlab::ksvm learner for use in mlr3}
 \description{
-Wrapper for the kernlab::ksvm learner for use in mlr3.
+mlr3 learner for 'ksvm' from the 'kernlab' package.
 }
 \author{
 \strong{Maintainer}: Marvin Böcker \email{marvin.boecker@tu-dortmund.de}
