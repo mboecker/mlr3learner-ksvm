@@ -1,6 +1,8 @@
 context("ksvm.kpar")
 
 test_kpar = function(kernel, kpar) {
+  set.seed(6)
+
   learner = LearnerRegrKSVM$new()
   learner$param_set$values = mlr3misc::insert_named(
     learner$param_set$values,
@@ -22,3 +24,8 @@ test_kpar = function(kernel, kpar) {
 
 test_kpar("rbfdot", list(sigma = 5))
 test_kpar("polydot", list(degree = 5, scale = 2, offset = 10))
+test_kpar("laplacedot", list(sigma = 5))
+test_kpar("anovadot", list(sigma = 5, degree = 3))
+#test_kpar("tanhdot", list(scale = 0.9, offset = 2.1))
+#test_kpar("besseldot", list(sigma = 1.2, degree = 3, order = 2))
+#test_kpar("stringdot", list(length = 10, lambda = 0.5, normalized = TRUE))
