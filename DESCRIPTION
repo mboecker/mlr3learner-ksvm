@@ -1,5 +1,5 @@
 Package: mlr3learner.ksvm
-Title: Wrapper for the kernlab::ksvm learner for use in mlr3.
+Title: Wrapper for the kernlab::ksvm learner for use in mlr3
 Version: 0.1.0
 Authors@R:
     c(person(given = "Marvin",
@@ -7,7 +7,7 @@ Authors@R:
              role = "cre",
              email = "marvin.boecker@tu-dortmund.de")
       )
-Description: Wrapper for the kernlab::ksvm learner for use in mlr3.
+Description: mlr3 learner for 'ksvm' from the 'kernlab' package.
 License: LGPL-3
 Depends:
     R (>= 3.1.0)
