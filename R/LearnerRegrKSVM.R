@@ -18,33 +18,31 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
       ps = ParamSet$new(list(
         ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
         ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svc", "eps-bsvr"), tags = c("train")),
-        ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot","polydot","vanilladot","tanhdot","laplacedot","besseldot","anovadot","splinedot","stringdot"), tags = c("train")),
+        ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot","polydot","vanilladot","tanhdot","laplacedot","besseldot","anovadot","splinedot"), tags = c("train")),
         ParamDbl$new(id = "C", default = 1, tags = c("train")),
-        ParamDbl$new(id = "nu", default = 0.2, tags = c("train")),
+        ParamDbl$new(id = "nu", default = 0.2, lower = 0, tags = c("train")),
         ParamDbl$new(id = "epsilon", default = 0.1, tags = c("train")),
-        ParamDbl$new(id = "cache", default = 40, tags = c("train")),
-        ParamDbl$new(id = "tol", default = 0.001, tags = c("train")),
+        ParamInt$new(id = "cache", default = 40, lower = 1L, tags = c("train")),
+        ParamDbl$new(id = "tol", default = 0.001, lower = 0, tags = c("train")),
         ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train")),
 
         # kernel hyperparameters
-        ParamDbl$new(id = "sigma", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL)),
-        ParamInt$new(id = "degree", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL)),
-        ParamDbl$new(id = "scale", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL)),
-        ParamInt$new(id = "order", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL)),
-        ParamDbl$new(id = "offset", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL)),
-        ParamInt$new(id = "length", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL)),
-        ParamDbl$new(id = "lambda", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL)),
-        ParamLgl$new(id = "normalized", default = NULL, tags = c("predict", "kpar"), special_vals = list(NULL))
+        ParamDbl$new(id = "sigma", default = NULL, lower = 0, tags = c("train", "kpar"), special_vals = list(NULL)),
+        ParamInt$new(id = "degree", default = NULL, lower = 1L, tags = c("train", "kpar"), special_vals = list(NULL)),
+        ParamDbl$new(id = "scale", default = NULL, lower = 0, tags = c("train", "kpar"), special_vals = list(NULL)),
+        ParamInt$new(id = "order", default = NULL, tags = c("train", "kpar"), special_vals = list(NULL)),
+        ParamDbl$new(id = "offset", default = NULL, tags = c("train", "kpar"), special_vals = list(NULL))
       ))
+
+      ps$add_dep("C", "type", CondAnyOf$new(c("eps-svr", "eps-bsvr")))
+      ps$add_dep("nu", "type", CondAnyOf$new(c("nu-svr")))
+      ps$add_dep("epsilon", "type", CondAnyOf$new(c("eps-svr", "nu-svr", "eps-bsvr")))
 
       ps$add_dep("sigma", "kernel", CondAnyOf$new(c("rbfdot", "laplacedot", "besseldot", "anovadot")))
       ps$add_dep("degree", "kernel", CondAnyOf$new(c("polydot", "besseldot", "anovadot")))
       ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
-      ps$add_dep("order", "kernel", "besseldot")
+      ps$add_dep("order", "kernel", CondAnyOf$new(c("besseldot")))
       ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
-      ps$add_dep("length", "kernel", "stringdot")
-      ps$add_dep("lambda", "kernel", "stringdot")
-      ps$add_dep("normalized", "kernel", "stringdot")
 
       super$initialize(
         id = id,
@@ -59,6 +57,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
     train_internal = function(task) {
       pars = self$param_set$get_values(tags = "train")
       kpar = self$param_set$get_values(tags = "kpar")
+      kpar = setdiff(kpar, pars)
       if(length(kpar) == 0) {
         pars$values = list(kpar = "automatic")
       } else {
