@@ -3,20 +3,12 @@ context("ksvm.kpar")
 test_kpar = function(kernel, kpar) {
   set.seed(6)
 
-  learner = LearnerRegrKSVM$new()
-  learner$param_set$values = mlr3misc::insert_named(
-    learner$param_set$values,
-    append(list(kernel = kernel), kpar)
-  )
+  learner = do.call(lrn, args = append(list("regr.ksvm", kernel = kernel), kpar))
   expect_learner(learner)
   result = run_autotest(learner)
   expect_true(result, info = result$error)
 
-  learner = LearnerClassifKSVM$new()
-  learner$param_set$values = mlr3misc::insert_named(
-    learner$param_set$values,
-    append(list(kernel = kernel), kpar)
-  )
+  learner = do.call(lrn, args = append(list("classif.ksvm", kernel = kernel), kpar))
   expect_learner(learner)
   result = run_autotest(learner)
   expect_true(result, info = result$error)

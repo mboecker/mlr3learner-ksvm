@@ -57,7 +57,8 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
     train_internal = function(task) {
       pars = self$param_set$get_values(tags = "train")
       kpar = self$param_set$get_values(tags = "kpar")
-      kpar = setdiff(kpar, pars)
+      pars = pars[setdiff(names(pars), names(kpar))]
+
       if(length(kpar) == 0) {
         pars$values = list(kpar = "automatic")
       } else {
