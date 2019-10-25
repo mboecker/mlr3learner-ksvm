@@ -17,7 +17,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
     initialize = function(id = "regr.ksvm") {
       ps = ParamSet$new(list(
         ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
-        ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svc", "eps-bsvr"), tags = c("train")),
+        ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svr", "eps-bsvr"), tags = c("train")),
         ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot","polydot","vanilladot","laplacedot","besseldot","anovadot"), tags = c("train")), # non-functional kernels: "tanhdot","splinedot"
         ParamDbl$new(id = "C", default = 1, tags = c("train")),
         ParamDbl$new(id = "nu", default = 0.2, lower = 0, tags = c("train")),
