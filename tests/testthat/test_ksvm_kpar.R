@@ -1,8 +1,6 @@
 context("ksvm.kpar")
 
 test_kpar = function(kernel, kpar) {
-  set.seed(6)
-
   learner = do.call(lrn, args = append(list("regr.ksvm", kernel = kernel), kpar))
   expect_learner(learner)
   result = run_autotest(learner)
