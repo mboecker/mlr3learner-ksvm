@@ -21,7 +21,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
         ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot","polydot","vanilladot","laplacedot","besseldot","anovadot"), tags = c("train")), # non-functional kernels: "tanhdot","splinedot"
         ParamDbl$new(id = "C", default = 1, tags = c("train")),
         ParamDbl$new(id = "nu", default = 0.2, lower = 0, tags = c("train")),
-        ParamDbl$new(id = "epsilon", default = 0.1, tags = c("train")),
+        # ParamDbl$new(id = "epsilon", default = 0.1, tags = c("train")),
         ParamInt$new(id = "cache", default = 40, lower = 1L, tags = c("train")),
         ParamDbl$new(id = "tol", default = 0.001, lower = 0, tags = c("train")),
         ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train")),
@@ -36,13 +36,13 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
 
       ps$add_dep("C", "type", CondAnyOf$new(c("C-svc", "C-bsvc", "spoc-svc", "kbb-svc")))
       ps$add_dep("nu", "type", CondAnyOf$new(c("nu-svc")))
-      ps$add_dep("epsilon", "type", CondAnyOf$new(c("eps-svr", "nu-svr", "eps-bsvm")))
+      # ps$add_dep("epsilon", "type", CondAnyOf$new(c("eps-svr", "nu-svr", "eps-bsvm")))
 
       ps$add_dep("sigma", "kernel", CondAnyOf$new(c("rbfdot", "laplacedot", "besseldot", "anovadot")))
       ps$add_dep("degree", "kernel", CondAnyOf$new(c("polydot", "besseldot", "anovadot")))
-      ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
+      ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot"))) # , "tanhdot"
       ps$add_dep("order", "kernel", CondAnyOf$new(c("besseldot")))
-      ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
+      ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot"))) # , "tanhdot"
 
       super$initialize(
         id = id,
