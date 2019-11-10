@@ -40,9 +40,9 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
 
       ps$add_dep("sigma", "kernel", CondAnyOf$new(c("rbfdot", "laplacedot", "besseldot", "anovadot")))
       ps$add_dep("degree", "kernel", CondAnyOf$new(c("polydot", "besseldot", "anovadot")))
-      ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
+      ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot"))) # , "tanhdot"
       ps$add_dep("order", "kernel", CondAnyOf$new(c("besseldot")))
-      ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot", "tanhdot")))
+      ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot"))) # , "tanhdot"
 
       super$initialize(
         id = id,
