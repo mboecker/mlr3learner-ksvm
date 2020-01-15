@@ -2,27 +2,28 @@ Package: mlr3learner.ksvm
 Title: Wrapper for the kernlab::ksvm learner for use in mlr3
 Version: 0.1.0
 Authors@R:
-    c(person(given = "Marvin",
-             family = "Böcker",
-             role = "cre",
-             email = "marvin.boecker@tu-dortmund.de")
-      )
-Description: mlr3 learner for 'ksvm' from the 'kernlab' package.
+    person(given = "Marvin",
+           family = "Böcker",
+           role = "cre",
+           email = "marvin.boecker@tu-dortmund.de")
+Description: mlr3 learner for 'ksvm' from the 'kernlab'
+    package.
 License: LGPL-3
+URL: https://github.com/mlr3learners/mlr3learners.ksvm
 Depends:
     R (>= 3.1.0)
 Imports:
     checkmate,
     data.table,
+    kernlab,
     mlr3,
     mlr3misc,
     paradox,
-    kernlab,
     R6
 Suggests:
-    testthat,
+    randomForest,
     rmarkdown,
-    randomForest
+    testthat
 Encoding: UTF-8
 NeedsCompilation: no
 Roxygen: list(markdown = TRUE)
