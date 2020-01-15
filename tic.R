@@ -3,7 +3,7 @@ do_package_checks()
 
 # build drat package
 get_stage("before_deploy") %>%
-  add_step(step_setup_ssh())
+  add_step(step_setup_ssh('id_rsa'))
 
 get_stage("deploy") %>%
   add_step(step_setup_push_deploy(
