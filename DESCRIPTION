@@ -1,6 +1,6 @@
 Package: mlr3learners.ksvm
 Title: Wrapper for the kernlab::ksvm learner for use in mlr3
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R:
     person(given = "Marvin",
            family = "Böcker",

@@ -1,4 +1,4 @@
-# mlr3learner.ksvm 0.1.0.9000
+# mlr3learners.ksvm 0.1.0.9000
 
 - Internal changes only.
 
