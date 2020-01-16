@@ -6,7 +6,15 @@
 \alias{mlr3learner.ksvm-package}
 \title{mlr3learner.ksvm: Wrapper for the kernlab::ksvm learner for use in mlr3}
 \description{
-mlr3 learner for 'ksvm' from the 'kernlab' package.
+mlr3 learner for 'ksvm' from the 'kernlab'
+    package.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/mlr3learners/mlr3learners.ksvm}
+}
+
 }
 \author{
 \strong{Maintainer}: Marvin Böcker \email{marvin.boecker@tu-dortmund.de}
