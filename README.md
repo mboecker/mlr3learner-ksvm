@@ -7,10 +7,25 @@
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-mlr3-orange.svg)](https://stackoverflow.com/questions/tagged/mlr3)
 <!-- badges: end -->
 
-This package wraps the `ksvm` Support Vector Machine from the `kernlab` package for use in `mlr3`.
-For for information on how to use this learner with `mlr3`, visit https://github.com/mlr3learners/mlr3learners and the [book](https://mlr3book.mlr3learners.com).
+Adds `ksvm()` from the `{kernlab}` package to `{mlr3}`.
 
-# Supported kernels:
+Install the latest release of the package via 
+
+```r
+install.packages("mlr3learners.ksvm")
+```
+
+by following the instructions in the [mlr3learners.drat](https://github.com/mlr3learners/mlr3learners.drat) README.
+
+
+Alternatively, you can install the latest version of `mlr3learners.ksvm` from Github with:
+
+```r
+remotes::install_github("mlr3learners/mlr3learners.ksvm")
+```
+
+## Supported kernels
+
 - `rbfdot`
 - `polydot`
 - `vanilladot`
@@ -18,7 +33,8 @@ For for information on how to use this learner with `mlr3`, visit https://github
 - `besseldot`
 - `anovadot`
 
-# Currently unsupported kernels:
+## Currently unsupported kernels
+
 - `tanhdot`
 - `splinedot`
 - `stringdot`
