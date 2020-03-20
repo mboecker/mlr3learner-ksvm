@@ -22,22 +22,20 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
     #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
       ps = ParamSet$new(list(
-        ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
-        ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svr", "eps-bsvr"), tags = c("train")),
-        ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot","polydot","vanilladot","laplacedot","besseldot","anovadot"), tags = c("train")), # non-functional kernels: "tanhdot","splinedot"
-        ParamDbl$new(id = "C", default = 1, tags = c("train")),
-        ParamDbl$new(id = "nu", default = 0.2, lower = 0, tags = c("train")),
-        ParamDbl$new(id = "epsilon", default = 0.1, tags = c("train")),
-        ParamInt$new(id = "cache", default = 40, lower = 1L, tags = c("train")),
-        ParamDbl$new(id = "tol", default = 0.001, lower = 0, tags = c("train")),
-        ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train")),
-
-        # kernel hyperparameters
-        ParamDbl$new(id = "sigma", default = NULL, lower = 0, tags = c("train", "kpar"), special_vals = list(NULL)),
-        ParamInt$new(id = "degree", default = NULL, lower = 1L, tags = c("train", "kpar"), special_vals = list(NULL)),
-        ParamDbl$new(id = "scale", default = NULL, lower = 0, tags = c("train", "kpar"), special_vals = list(NULL)),
-        ParamInt$new(id = "order", default = NULL, tags = c("train", "kpar"), special_vals = list(NULL)),
-        ParamDbl$new(id = "offset", default = NULL, tags = c("train", "kpar"), special_vals = list(NULL))
+        ParamLgl$new(id = "scaled", default = TRUE, tags ="train"),
+        ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svr", "eps-bsvr"), tags = "train"),
+        ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot","polydot","vanilladot","laplacedot","besseldot","anovadot"), tags = "train"),
+        ParamDbl$new(id = "C", default = 1, tags = "train"),
+        ParamDbl$new(id = "nu", default = 0.2, lower = 0, tags = "train"),
+        ParamDbl$new(id = "epsilon", default = 0.1, tags ="train"),
+        ParamInt$new(id = "cache", default = 40, lower = 1L, tags ="train"),
+        ParamDbl$new(id = "tol", default = 0.001, lower = 0, tags ="train"),
+        ParamLgl$new(id = "shrinking", default = TRUE, tags ="train"),
+        ParamDbl$new(id = "sigma", default = NO_DEF, lower = 0, tags ="train"),
+        ParamInt$new(id = "degree", default = NO_DEF, lower = 1L, tags ="train"),
+        ParamDbl$new(id = "scale", default = NO_DEF, lower = 0, tags ="train"),
+        ParamInt$new(id = "order", default = NO_DEF, tags ="train"),
+        ParamDbl$new(id = "offset", default = NO_DEF, tags ="train")
       ))
 
       ps$add_dep("C", "type", CondAnyOf$new(c("eps-svr", "eps-bsvr")))
@@ -46,9 +44,9 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
 
       ps$add_dep("sigma", "kernel", CondAnyOf$new(c("rbfdot", "laplacedot", "besseldot", "anovadot")))
       ps$add_dep("degree", "kernel", CondAnyOf$new(c("polydot", "besseldot", "anovadot")))
-      ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot"))) # , "tanhdot"
+      ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot")))
       ps$add_dep("order", "kernel", CondAnyOf$new(c("besseldot")))
-      ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot"))) # , "tanhdot"
+      ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot")))
 
       super$initialize(
         id = "regr.ksvm",
@@ -65,19 +63,21 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
 
     .train = function(task) {
       pars = self$param_set$get_values(tags = "train")
-      kpar = self$param_set$get_values(tags = "kpar")
-      pars = pars[setdiff(names(pars), names(kpar))]
+      kpar = intersect(c("sigma", "degree", "scale", "order", "offset"), names(pars))
 
-      if(length(kpar) == 0) {
-        pars$values = list(kpar = "automatic")
-      } else {
-        pars$values = list(kpar = kpar)
+      if ("weights" %in% task$properties) {
+        pars$class.weights = task$weights$weight
       }
+
+      if(length(kpar) > 0) {
+        pars$kpar = pars[kpar]
+        pars[kpar] = NULL
+        }
 
       f = task$formula()
       data = task$data()
 
-      invoke(kernlab::ksvm, x = f, data = data, class.weights = task$weights$weight, .args = pars)
+      invoke(kernlab::ksvm, x = f, data = data, .args = pars)
     },
 
     .predict = function(task) {
