@@ -56,7 +56,8 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
         feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"), # which feature types are supported? Must be a subset of mlr_reflections$task_feature_types
         predict_types = c("response", "prob"), # which predict types are supported? See mlr_reflections$learner_predict_types
         param_set = ps,
-        properties = c("weights", "twoclass", "multiclass")
+        properties = c("weights", "twoclass", "multiclass"),
+        man = "mlr3learners.ksvm::mlr_learners_classif.ksvm"
       )
     }),
 

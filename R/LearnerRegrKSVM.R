@@ -56,7 +56,8 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
         feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
         predict_types = c("response"),
         param_set = ps,
-        properties = c("weights")
+        properties = c("weights"),
+        man = "mlr_learners_regr.ksvm"
       )
     }),
 
