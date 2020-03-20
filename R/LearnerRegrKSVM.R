@@ -1,20 +1,26 @@
 #' @title Regression Kernlab Support Vector Machine
 #'
-#' @aliases mlr_learners_regr.ksvm
-#' @format [R6::R6Class] inheriting from [LearnerRegr].
+#' @name mlr_learners_regr.ksvm
 #'
 #' @description
-#' A [LearnerRegr] for a regression support vector machine implemented in [kernlab::ksvm()] in package \CRANpkg{kernlab}.
+#' Regression support vector machine.
+#' Calls  [kernlab::ksvm()] from package \CRANpkg{kernlab}.
+#'
+#' @templateVar id regr.ksvm
+#' @template section_dictionary_learner
 #'
 #' @references
-#' Alexandros Karatzoglou, Alex Smola, Kurt Hornik, Achim Zeileis (2004).
-#' kernlab - An S4 Package for Kernel Methods in R. Journal of Statistical Software 11(9), 1-20.
-#' \url{http://www.jstatsoft.org/v11/i09/}
+#' \cite{mlr3learners.ksvm}{karatzoglou_2004}
 #'
 #' @export
+#' @template seealso_learner
+#' @template example
 LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
   public = list(
-    initialize = function(id = "regr.ksvm") {
+
+    #' @description
+    #' Creates a new instance of this [R6][R6::R6Class] class.
+    initialize = function() {
       ps = ParamSet$new(list(
         ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
         ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svr", "eps-bsvr"), tags = c("train")),
@@ -45,16 +51,18 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
       ps$add_dep("offset", "kernel", CondAnyOf$new(c("polydot"))) # , "tanhdot"
 
       super$initialize(
-        id = id,
+        id = "regr.ksvm",
         packages = "kernlab",
         feature_types = c("logical", "integer", "numeric", "character", "factor", "ordered"),
         predict_types = c("response"),
         param_set = ps,
         properties = c("weights")
       )
-    },
+    }),
 
-    train_internal = function(task) {
+  private = list(
+
+    .train = function(task) {
       pars = self$param_set$get_values(tags = "train")
       kpar = self$param_set$get_values(tags = "kpar")
       pars = pars[setdiff(names(pars), names(kpar))]
@@ -71,7 +79,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
       invoke(kernlab::ksvm, x = f, data = data, class.weights = task$weights$weight, .args = pars)
     },
 
-    predict_internal = function(task) {
+    .predict = function(task) {
       newdata = task$data(cols = task$feature_names)
 
       p = invoke(kernlab::predict, self$model, newdata = newdata, type = "response")
