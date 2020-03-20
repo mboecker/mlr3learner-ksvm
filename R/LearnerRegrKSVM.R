@@ -21,6 +21,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
     #' @description
     #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
+
       ps = ParamSet$new(list(
         ParamLgl$new(id = "scaled", default = TRUE, tags = "train"),
         ParamFct$new(id = "type", default = "eps-svr", levels = c("eps-svr", "nu-svr", "eps-bsvr"), tags = "train"),
@@ -62,6 +63,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
   private = list(
 
     .train = function(task) {
+
       pars = self$param_set$get_values(tags = "train")
       kpar = intersect(c("sigma", "degree", "scale", "order", "offset"), names(pars))
 

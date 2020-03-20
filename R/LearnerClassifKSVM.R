@@ -21,6 +21,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
     #' @description
     #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
+
       ps = ParamSet$new(list(
         ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
         ParamFct$new(id = "type", default = "C-svc", levels = c("C-svc", "nu-svc", "C-bsvc", "spoc-svc", "kbb-svc"), tags = c("train")),
