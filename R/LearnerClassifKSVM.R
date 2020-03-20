@@ -21,27 +21,25 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
     #' @description
     #' Creates a new instance of this [R6][R6::R6Class] class.
     initialize = function() {
+
       ps = ParamSet$new(list(
         ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
         ParamFct$new(id = "type", default = "C-svc", levels = c("C-svc", "nu-svc", "C-bsvc", "spoc-svc", "kbb-svc"), tags = c("train")),
-        ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot","polydot","vanilladot","laplacedot","besseldot","anovadot"), tags = c("train")), # non-functional kernels: "tanhdot","splinedot"
+        ParamFct$new(id = "kernel", default = "rbfdot", levels = c("rbfdot", "polydot", "vanilladot", "laplacedot", "besseldot", "anovadot"), tags = c("train")),
         ParamDbl$new(id = "C", default = 1, tags = c("train")),
         ParamDbl$new(id = "nu", default = 0.2, lower = 0, tags = c("train")),
-        # ParamDbl$new(id = "epsilon", default = 0.1, tags = c("train")),
         ParamInt$new(id = "cache", default = 40, lower = 1L, tags = c("train")),
         ParamDbl$new(id = "tol", default = 0.001, lower = 0, tags = c("train")),
         ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train")),
-        ParamDbl$new(id = "sigma", default = NO_DEF, lower = 0, tags ="train"),
-        ParamInt$new(id = "degree", default = NO_DEF, lower = 1L, tags ="train"),
-        ParamDbl$new(id = "scale", default = NO_DEF, lower = 0, tags ="train"),
-        ParamInt$new(id = "order", default = NO_DEF, tags ="train"),
-        ParamDbl$new(id = "offset", default = NO_DEF, tags ="train")
+        ParamDbl$new(id = "sigma", default = NO_DEF, lower = 0, tags = "train"),
+        ParamInt$new(id = "degree", default = NO_DEF, lower = 1L, tags = "train"),
+        ParamDbl$new(id = "scale", default = NO_DEF, lower = 0, tags = "train"),
+        ParamInt$new(id = "order", default = NO_DEF, tags = "train"),
+        ParamDbl$new(id = "offset", default = NO_DEF, tags = "train")
       ))
 
       ps$add_dep("C", "type", CondAnyOf$new(c("C-svc", "C-bsvc", "spoc-svc", "kbb-svc")))
       ps$add_dep("nu", "type", CondAnyOf$new(c("nu-svc")))
-      # ps$add_dep("epsilon", "type", CondAnyOf$new(c("eps-svr", "nu-svr", "eps-bsvm")))
-
       ps$add_dep("sigma", "kernel", CondAnyOf$new(c("rbfdot", "laplacedot", "besseldot", "anovadot")))
       ps$add_dep("degree", "kernel", CondAnyOf$new(c("polydot", "besseldot", "anovadot")))
       ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot")))
@@ -62,6 +60,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
   private = list(
 
     .train = function(task) {
+
       pars = self$param_set$get_values(tags = "train")
       kpar = intersect(c("sigma", "degree", "scale", "order", "offset"), names(pars))
 
@@ -69,7 +68,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
         pars$class.weights = task$weights$weight
       }
 
-      if(length(kpar) > 0) {
+      if (length(kpar) > 0) {
         pars$kpar = pars[kpar]
         pars[kpar] = NULL
       }
