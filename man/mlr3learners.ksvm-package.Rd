@@ -19,4 +19,9 @@ Useful links:
 \author{
 \strong{Maintainer}: Marvin Böcker \email{marvin.boecker@tu-dortmund.de}
 
+Authors:
+\itemize{
+  \item Marc Becker \email{marcbecker@posteo.de}
+}
+
 }
