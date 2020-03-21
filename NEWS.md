@@ -1,3 +1,30 @@
+# mlr3learners.ksvm 0.1.1.9000
+
+* Update documentation, methods and DESCRIPTION
+* Add man for help method
+* gh actions workflow
+* Add badge
+* Update Rbuildignore
+* Remove travis
+* Fix man
+* Style
+* Rewrite train
+* Remove unit tests
+* Style
+* Style
+* Style
+* Remove appveyor
+* Update DESCRIPTION
+* Remove badges
+* Line breaks
+* Update DESCRIPTION
+* Update README
+* Line width roxygen files
+* Update zzz.R
+* Add to drat
+* Style
+
+
 # mlr3learners.ksvm 0.1.1
 
 * Update documentation, methods and DESCRIPTION
