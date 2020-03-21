@@ -4,10 +4,9 @@
 \name{mlr3learners.ksvm-package}
 \alias{mlr3learners.ksvm}
 \alias{mlr3learners.ksvm-package}
-\title{mlr3learners.ksvm: Wrapper for the kernlab::ksvm learner for use in mlr3}
+\title{mlr3learners.ksvm: Learners from kernlab package for mlr3}
 \description{
-mlr3 learner for 'ksvm' from the 'kernlab'
-    package.
+Adds `ksvm()` from the kernlab package to mlr3.
 }
 \seealso{
 Useful links:
@@ -18,5 +17,10 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Marvin Böcker \email{marvin.boecker@tu-dortmund.de}
+
+Authors:
+\itemize{
+  \item Marc Becker \email{marcbecker@posteo.de}
+}
 
 }
