@@ -10,7 +10,8 @@ Calls  \code{\link[kernlab:ksvm]{kernlab::ksvm()}} from package \CRANpkg{kernlab
 }
 \section{Dictionary}{
 
-This \link{Learner} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary} \link{mlr_learners} or with the associated sugar function \code{\link[=lrn]{lrn()}}:\preformatted{mlr_learners$get("classif.ksvm")
+This \link{Learner} can be instantiated via the \link[mlr3misc:Dictionary]{dictionary}
+\link{mlr_learners} or with the associated sugar function \code{\link[=lrn]{lrn()}}:\preformatted{mlr_learners$get("classif.ksvm")
 lrn("classif.ksvm")
 }
 }
@@ -28,7 +29,8 @@ if (requireNamespace("kernlab")) {
 \cite{mlr3learners.ksvm}{karatzoglou_2004}
 }
 \seealso{
-\link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}: \link[mlr3:mlr_learners]{mlr3::mlr_learners}
+\link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}:
+\link[mlr3:mlr_learners]{mlr3::mlr_learners}
 }
 \section{Super classes}{
 \code{\link[mlr3:Learner]{mlr3::Learner}} -> \code{\link[mlr3:LearnerClassif]{mlr3::LearnerClassif}} -> \code{LearnerClassifKSVM}
