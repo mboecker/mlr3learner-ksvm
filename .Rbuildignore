@@ -14,3 +14,4 @@
 ^\.ccache$
 ^\.github$
 ^clang-.*
+^\.vscode$
