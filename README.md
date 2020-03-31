@@ -8,7 +8,7 @@
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-mlr3-orange.svg)](https://stackoverflow.com/questions/tagged/mlr3)
 <!-- badges: end -->
 
-Adds `kernlab()` from the {kernlab} package to {mlr3}.
+Adds `ksvm()` from the {kernlab} package to {mlr3}.
 
 Install the latest release of the package via 
 
