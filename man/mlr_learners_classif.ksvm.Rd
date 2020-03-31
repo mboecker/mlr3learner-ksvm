@@ -26,7 +26,7 @@ if (requireNamespace("kernlab")) {
 }
 }
 \references{
-\cite{mlr3learners.ksvm}{karatzoglou_2004}
+\cite{mlr3learners.kernlab}{karatzoglou_2004}
 }
 \seealso{
 \link[mlr3misc:Dictionary]{Dictionary} of \link[mlr3:Learner]{Learners}:

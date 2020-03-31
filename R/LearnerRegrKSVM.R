@@ -10,7 +10,7 @@
 #' @template section_dictionary_learner
 #'
 #' @references
-#' \cite{mlr3learners.ksvm}{karatzoglou_2004}
+#' \cite{mlr3learners.kernlab}{karatzoglou_2004}
 #'
 #' @export
 #' @template seealso_learner
@@ -64,7 +64,7 @@ LearnerRegrKSVM = R6Class("LearnerRegrKSVM", inherit = LearnerRegr,
         predict_types = "response",
         param_set = ps,
         properties = "weights",
-        man = "mlr3learners.ksvm::mlr_learners_regr.ksvm"
+        man = "mlr3learners.kernlab::mlr_learners_regr.ksvm"
       )
     }),
 

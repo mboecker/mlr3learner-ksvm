@@ -1,4 +1,4 @@
-# mlr3learners.ksvm 0.1.1.9000
+# mlr3learners.kernlab 0.1.1.9000
 
 * Update documentation, methods and DESCRIPTION
 * Add man for help method
@@ -25,7 +25,7 @@
 * Style
 
 
-# mlr3learners.ksvm 0.1.1
+# mlr3learners.kernlab 0.1.1
 
 * Update documentation, methods and DESCRIPTION
 * Add man for help method
@@ -36,11 +36,11 @@
 * Add to drat
 
 
-# mlr3learners.ksvm 0.1.0.9000
+# mlr3learners.kernlab 0.1.0.9000
 
 - Internal changes only.
 
 
-# mlr3learner.ksvm 0.1.0
+# mlr3learner.kernlab 0.1.0
 
 * Added a `NEWS.md` file to track changes to the package.

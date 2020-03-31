@@ -10,7 +10,7 @@
 #' @template section_dictionary_learner
 #'
 #' @references
-#' \cite{mlr3learners.ksvm}{karatzoglou_2004}
+#' \cite{mlr3learners.kernlab}{karatzoglou_2004}
 #'
 #' @export
 #' @template seealso_learner
@@ -62,7 +62,7 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
         predict_types = c("response", "prob"),
         param_set = ps,
         properties = c("weights", "twoclass", "multiclass"),
-        man = "mlr3learners.ksvm::mlr_learners_classif.ksvm"
+        man = "mlr3learners.kernlab::mlr_learners_classif.ksvm"
       )
     }),
 

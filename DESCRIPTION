@@ -1,4 +1,4 @@
-Package: mlr3learners.ksvm
+Package: mlr3learners.kernlab
 Title: Learners from kernlab package for mlr3
 Version: 0.1.1.9000
 Authors@R:
@@ -12,7 +12,7 @@ Authors@R:
              email = "marcbecker@posteo.de"))
 Description: Adds `ksvm()` from the kernlab package to mlr3.
 License: LGPL-3
-URL: https://github.com/mlr3learners/mlr3learners.ksvm
+URL: https://github.com/mlr3learners/mlr3learners.kernlab
 Depends:
     R (>= 3.1.0)
 Imports:

@@ -1,4 +1,4 @@
 library(testthat)
-library(mlr3learners.ksvm)
+library(mlr3learners.kernlab)
 
-test_check("mlr3learners.ksvm")
+test_check("mlr3learners.kernlab")
