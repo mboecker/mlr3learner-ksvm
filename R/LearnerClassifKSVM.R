@@ -15,7 +15,8 @@
 #' @export
 #' @template seealso_learner
 #' @template example
-LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
+LearnerClassifKSVM = R6Class("LearnerClassifKSVM",
+  inherit = LearnerClassif,
   public = list(
 
     #' @description
@@ -23,11 +24,14 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
     initialize = function() {
       ps = ParamSet$new(list(
         ParamLgl$new(id = "scaled", default = TRUE, tags = c("train")),
-        ParamFct$new(id = "type", default = "C-svc",
+        ParamFct$new(
+          id = "type", default = "C-svc",
           levels = c("C-svc", "nu-svc", "C-bsvc", "spoc-svc", "kbb-svc"),
           tags = c("train")),
-        ParamFct$new(id = "kernel", default = "rbfdot",
-          levels = c("rbfdot", "polydot", "vanilladot",
+        ParamFct$new(
+          id = "kernel", default = "rbfdot",
+          levels = c(
+            "rbfdot", "polydot", "vanilladot",
             "laplacedot", "besseldot", "anovadot"),
           tags = c("train")),
         ParamDbl$new(id = "C", default = 1, tags = c("train")),
@@ -36,19 +40,23 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
         ParamDbl$new(id = "tol", default = 0.001, lower = 0, tags = c("train")),
         ParamLgl$new(id = "shrinking", default = TRUE, tags = c("train")),
         ParamDbl$new(id = "sigma", default = NO_DEF, lower = 0, tags = "train"),
-        ParamInt$new(id = "degree", default = NO_DEF, lower = 1L,
+        ParamInt$new(
+          id = "degree", default = NO_DEF, lower = 1L,
           tags = "train"),
         ParamDbl$new(id = "scale", default = NO_DEF, lower = 0, tags = "train"),
         ParamInt$new(id = "order", default = NO_DEF, tags = "train"),
         ParamDbl$new(id = "offset", default = NO_DEF, tags = "train")
       ))
 
-      ps$add_dep("C", "type",
+      ps$add_dep(
+        "C", "type",
         CondAnyOf$new(c("C-svc", "C-bsvc", "spoc-svc", "kbb-svc")))
       ps$add_dep("nu", "type", CondAnyOf$new(c("nu-svc")))
-      ps$add_dep("sigma", "kernel",
+      ps$add_dep(
+        "sigma", "kernel",
         CondAnyOf$new(c("rbfdot", "laplacedot", "besseldot", "anovadot")))
-      ps$add_dep("degree", "kernel",
+      ps$add_dep(
+        "degree", "kernel",
         CondAnyOf$new(c("polydot", "besseldot", "anovadot")))
       ps$add_dep("scale", "kernel", CondAnyOf$new(c("polydot")))
       ps$add_dep("order", "kernel", CondAnyOf$new(c("besseldot")))
@@ -57,7 +65,8 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
       super$initialize(
         id = "classif.ksvm",
         packages = "kernlab",
-        feature_types = c("logical", "integer", "numeric",
+        feature_types = c(
+          "logical", "integer", "numeric",
           "character", "factor", "ordered"),
         predict_types = c("response", "prob"),
         param_set = ps,
@@ -69,7 +78,8 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
   private = list(
     .train = function(task) {
       pars = self$param_set$get_values(tags = "train")
-      kpar = intersect(c("sigma", "degree", "scale", "order", "offset"),
+      kpar = intersect(
+        c("sigma", "degree", "scale", "order", "offset"),
         names(pars))
 
       if ("weights" %in% task$properties) {
@@ -84,7 +94,8 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
       f = task$formula()
       data = task$data()
 
-      invoke(kernlab::ksvm, x = f, data = data,
+      invoke(kernlab::ksvm,
+        x = f, data = data,
         prob.model = self$predict_type == "prob", .args = pars)
     },
 
@@ -93,7 +104,8 @@ LearnerClassifKSVM = R6Class("LearnerClassifKSVM", inherit = LearnerClassif,
 
       predict_type = ifelse(self$predict_type == "prob",
         "probabilities", "response")
-      p = invoke(kernlab::predict, self$model, newdata = newdata,
+      p = invoke(kernlab::predict, self$model,
+        newdata = newdata,
         type = predict_type)
 
       if (self$predict_type == "response") {
