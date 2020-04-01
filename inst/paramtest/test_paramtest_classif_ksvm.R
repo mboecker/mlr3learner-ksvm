@@ -1,4 +1,5 @@
 library(mlr3learners.kernlab)
+library(mlr3)
 
 test_that("classif.ksvm", {
   learner = lrn("classif.ksvm")
