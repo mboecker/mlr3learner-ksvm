@@ -1,11 +1,11 @@
 if (!ci_has_env("PARAMTEST") && !ci_has_env("DRAT")) {
   do_package_checks()
 
-  do_drat("mlr3learners/mlr3learners.drat")
 
   # add random delay (up to 20s) to avoid git racing conditions
   get_stage("deploy") %>%
     add_code_step(floor(runif(15, min = 0, max = 20)))
+  do_drat("mlr3learners/mlr3learners.drat")
 
 } else if (ci_has_env("PARAMTEST")) {
   # PARAMTEST
@@ -19,7 +19,6 @@ if (!ci_has_env("PARAMTEST") && !ci_has_env("DRAT")) {
     stop_on_failure = TRUE))
 } else if (ci_has_env("DRAT")) {
 
-  do_drat("mlr3learners/mlr3learners.drat")
 
   get_stage("deploy") %>%
     add_step(step_install_deps()) %>%
@@ -29,4 +28,5 @@ if (!ci_has_env("PARAMTEST") && !ci_has_env("DRAT")) {
     add_code_step(writeLines(
       gsub(".9000", "", readLines("DESCRIPTION")),
       "DESCRIPTION"))
+  do_drat("mlr3learners/mlr3learners.drat")
 }
