@@ -13,6 +13,6 @@ if (!ci_has_env("PARAMTEST") && !ci_has_env("DRAT")) {
 } else if (ci_has_env("DRAT")) {
   get_stage("deploy") %>%
     # remove devel version indicator to enable deployment
-    add_code_step(gsub(".9000", "", readLines("DESCRIPTION")))
+    add_code_step(writeLines(gsub(".9000", "", readLines("DESCRIPTION")), "DESCRIPTION"))
   do_drat("mlr3learners/mlr3learners.drat")
 }
