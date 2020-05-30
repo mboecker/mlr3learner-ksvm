@@ -1,5 +1,4 @@
-# R CMD check
-if (!ci_has_env("PARAMTEST") || !ci_has_env("DRAT")) {
+if (!ci_has_env("PARAMTEST") && !ci_has_env("DRAT")) {
   do_package_checks()
 } else if (ci_has_env("PARAMTEST")) {
   # PARAMTEST

@@ -20,11 +20,11 @@ jobs:
         config:
           # comment out lines if you do not want to build on certain platforms
           - { os: windows-latest, r: "release" }
-          - { os: windows-latest, r: "oldrel" }
+          - { os: windows-latest, r: "3.6" }
           - { os: macOS-latest, r: "release" }
-          - { os: macOS-latest, r: "oldrel" }
+          - { os: macOS-latest, r: "3.6" }
           - { os: ubuntu-latest, r: "release" }
-          - { os: ubuntu-latest, r: "oldrel" }
+          - { os: ubuntu-latest, r: "3.6" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
@@ -41,6 +41,8 @@ jobs:
       # prevent rgl issues because no X11 display is available
       RGL_USE_NULL: true
       DRAT: true
+      # use GITHUB_TOKEN from GitHub to workaround rate limits in {remotes}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
