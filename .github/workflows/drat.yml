@@ -6,10 +6,10 @@ on:
     # * is a special character in YAML so you have to quote this string
     - cron: "0 4 * * *"
 
-name: drat
+name: mlr3learners.drat
 
 jobs:
-  R-CMD-check:
+  drat:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -21,10 +21,12 @@ jobs:
           # comment out lines if you do not want to build on certain platforms
           - { os: windows-latest, r: "release" }
           - { os: windows-latest, r: "3.6" }
+          - { os: windows-latest, r: "3.5" }
           - { os: macOS-latest, r: "release" }
           - { os: macOS-latest, r: "3.6" }
+          - { os: macOS-latest, r: "3.5" }
           - { os: ubuntu-latest, r: "release" }
-          - { os: ubuntu-latest, r: "3.6" }
+          - { os: ubuntu-latest, r: "3.5" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
@@ -82,26 +84,6 @@ jobs:
         run: |
           sudo apt install ccache libcurl4-openssl-dev
           mkdir -p ~/.R && echo -e 'CXX_STD = CXX14\n\nCC=ccache gcc -std=gnu99\nCXX=ccache g++\nCXX11=ccache g++ -std=gnu99\nCXX14=ccache g++ -std=gnu99\nC11=ccache g++\nC14=ccache g++\nFC=ccache gfortran\nF77=ccache gfortran' > $HOME/.R/Makevars
-
-      # install ccache and write config file
-      # mirror the setup described in https://github.com/rmacoslib/r-macos-rtools
-      - name: "[macOS-devel] ccache"
-        if: runner.os == 'macOS' && matrix.config.r == 'devel'
-        run: |
-          brew install ccache
-          # install SDK 10.13 (High Sierra, used by CRAN)
-          wget -nv https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.13.sdk.tar.xz
-          tar fxz MacOSX10.13.sdk.tar.xz
-          sudo mv MacOSX10.13.sdk /Library/Developer/CommandLineTools/SDKs/
-          rm -rf MacOSX10.13*
-          # install gfortran 8.2 (used by CRAN)
-          wget -nv https://github.com/fxcoudert/gfortran-for-macOS/releases/download/8.2/gfortran-8.2-Mojave.dmg
-          sudo hdiutil attach gfortran*.dmg
-          sudo installer -package /Volumes/gfortran*/gfortran*/gfortran*.pkg -target /
-          sudo hdiutil detach /Volumes/gfortran-8.2-Mojave
-          rm gfortran-8*
-          # set compiler flags
-          mkdir -p ~/.R && echo -e 'CC=ccache clang\nCPP=ccache clang\nCXX=ccache clang++\nCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCCFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCXXFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nCPPFLAGS=-isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.13.sdk\nF77=ccache /usr/local/gfortran/bin/gfortran\nFC=ccache /usr/local/gfortran/bin/gfortran' > $HOME/.R/Makevars
 
       # for some strange Windows reason this step and the next one need to be decoupled
       - name: "[Stage] Prepare"
