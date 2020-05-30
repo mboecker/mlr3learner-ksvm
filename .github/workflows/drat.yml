@@ -6,7 +6,7 @@ on:
     # * is a special character in YAML so you have to quote this string
     - cron: "0 4 * * *"
 
-name: R CMD Check via {tic}
+name: drat
 
 jobs:
   R-CMD-check:
@@ -20,11 +20,11 @@ jobs:
         config:
           # comment out lines if you do not want to build on certain platforms
           - { os: windows-latest, r: "release" }
-          - { os: windows-latest, r: "oldrelease" }
+          - { os: windows-latest, r: "oldrel" }
           - { os: macOS-latest, r: "release" }
-          - { os: macOS-latest, r: "oldrelease" }
+          - { os: macOS-latest, r: "oldrel" }
           - { os: ubuntu-latest, r: "release" }
-          - { os: ubuntu-latest, r: "oldrelease" }
+          - { os: ubuntu-latest, r: "oldrel" }
 
     env:
       # otherwise remotes::fun() errors cause the build to fail. Example: Unavailability of binaries
