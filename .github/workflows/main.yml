@@ -40,6 +40,7 @@ jobs:
       CCACHE_SLOPPINESS: include_file_ctime
       # prevent rgl issues because no X11 display is available
       RGL_USE_NULL: true
+      id_rsa: ${{ secrets.id_rsa }}
 
     steps:
       - uses: actions/checkout@v2
