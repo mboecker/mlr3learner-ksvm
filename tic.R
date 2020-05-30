@@ -1,7 +1,7 @@
 # R CMD check
-if (!ci_has_env("PARAMTEST")) {
+if (!ci_has_env("PARAMTEST") || !ci_has_env("DRAT")) {
   do_package_checks()
-} else {
+} else if (ci_has_env("PARAMTEST")) {
   # PARAMTEST
   get_stage("install") %>%
     add_step(step_install_deps())
@@ -11,9 +11,7 @@ if (!ci_has_env("PARAMTEST")) {
     add_code_step(testthat::test_dir(system.file("paramtest",
       package = "mlr3learners.kernlab"),
     stop_on_failure = TRUE))
-}
-
-if (ci_has_env("DRAT")) {
+} else if (ci_has_env("DRAT")) {
   get_stage("deploy") %>%
     # remove devel version indicator to enable deployment
     add_code_step(gsub(".9000", "", readLines("DESCRIPTION")))
