@@ -12,6 +12,7 @@ if (!ci_has_env("PARAMTEST") && !ci_has_env("DRAT")) {
     stop_on_failure = TRUE))
 } else if (ci_has_env("DRAT")) {
   get_stage("deploy") %>%
+    add_step(step_install_deps()) %>%
     # remove devel version indicator to enable deployment
     add_code_step(writeLines(gsub(".9000", "", readLines("DESCRIPTION")), "DESCRIPTION"))
   do_drat("mlr3learners/mlr3learners.drat")
