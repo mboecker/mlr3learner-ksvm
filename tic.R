@@ -1,7 +1,6 @@
 if (!ci_has_env("PARAMTEST") && !ci_has_env("DRAT")) {
   do_package_checks()
 
-
   # add random delay (up to 20s) to avoid git racing conditions
   get_stage("deploy") %>%
     add_code_step(floor(runif(15, min = 0, max = 20)))
